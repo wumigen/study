@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">HD403Demo</string>
+    <string name="action_settings">Settings</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="readbtn">读取</string>
+    <string name="writebtn">写入</string>
+    <string name="ioctlbtn">IOCTL</string>
+    <string name="openbtn">打开设备</string>
+    <string name="closebtn">关闭设备</string>
+    <string name="dev_name">设备名称:</string>
+    <string name="devnamehint">输入设备名称</string>
+    <string name="read_lenth">读取长度:</string>
+    <string name="write_cmd">写入命令:</string>
+    <string name="ioctl_cmd">ioctl命令:</string>
+
+</resources>
