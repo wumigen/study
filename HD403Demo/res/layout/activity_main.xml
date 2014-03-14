@@ -16,7 +16,8 @@
             android:layout_width="0dip"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/readbtn" />
+            android:text="@string/readbtn"
+            android:visibility="gone" />
 
         <Button
             android:id="@+id/btn_write"
@@ -39,7 +40,8 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_above="@id/lin_01"
-        android:orientation="horizontal" >
+        android:orientation="horizontal"
+        android:visibility="gone" >
 
         <Button
             android:id="@+id/btn_open"
@@ -82,7 +84,8 @@
 
         <TableRow
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content" >
+            android:layout_height="wrap_content"
+            android:visibility="gone" >
 
             <TextView
                 android:layout_width="wrap_content"
@@ -149,6 +152,15 @@
         android:padding="4dp"
         android:textSize="12sp"
         android:textStyle="bold"
-        android:typeface="monospace" />
+        android:typeface="monospace"
+        android:visibility="gone" />
+
+    <TextView
+        android:id="@+id/write_resutl"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/lin_01"
+        android:layout_below="@id/tab_01"
+        android:textSize="50sp" />
 
 </RelativeLayout>

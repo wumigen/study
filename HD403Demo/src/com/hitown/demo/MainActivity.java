@@ -52,7 +52,10 @@ public class MainActivity extends Activity {
 		mCloseBtn.setOnClickListener(new OnClickListenerImpl());
 
 		// mDevice.setText("/dev/pca9555");
-		mDevice.setText("mnt/sdcard/update/test.txt");
+		mDevice.setText("/dev/ds277x");
+		mWritCmd.setText("1");
+		mDevice.setEnabled(false);
+		mWritCmd.setEnabled(false);
 
 	}
 
@@ -86,7 +89,7 @@ public class MainActivity extends Activity {
 			int lenth = Integer.parseInt(mReadLeth.getText().toString());
 			byte[] buffer = new byte[lenth];
 			mManager.readDev(buffer, buffer.length);
-			showLog("read : "+BaseUtil.bytesToHexString(buffer));
+			showLog("read : " + BaseUtil.bytesToHexString(buffer));
 		} else {
 			showLog(getString(R.string.check_read_cmd));
 		}
@@ -103,7 +106,7 @@ public class MainActivity extends Activity {
 				// TODO: handle exception
 				canParse = false;
 				e.printStackTrace();
-				Log.e("wmg", "data "+i +" ,"+sarray[i]);
+				Log.e("wmg", "data " + i + " ," + sarray[i]);
 			}
 		}
 		if (sarray.length > 0 && canParse) {
