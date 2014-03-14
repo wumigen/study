@@ -70,7 +70,7 @@ JNIEXPORT jint JNICALL Java_com_hitown_demo_PartsManager_writeDev(JNIEnv *env,
 			NULL));
 	int lenth = write(fd, buf_char, size);
 	LOGD("write lenth = %d", lenth);
-	return lenth;
+	return -1;
 }
 
 /*

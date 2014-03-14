@@ -1,7 +1,5 @@
 package com.hitown.demo;
 
-import java.io.IOException;
-
 import android.app.Activity;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -13,11 +11,13 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 public class MainActivity extends Activity {
 	private LogView mLogView;
 	private EditText mDevice, mReadLeth, mWritCmd, mIoctlCmd;
 	private Button mReadBtn, mWriteBtn, mIoctlBtn, mOpenBtn, mCloseBtn;
+	private TextView mResult;
 	private PartsManager mManager = null;
 	private int count = 0;
 
@@ -43,6 +43,8 @@ public class MainActivity extends Activity {
 		mIoctlBtn = (Button) findViewById(R.id.btn_ioctl);
 		mOpenBtn = (Button) findViewById(R.id.btn_open);
 		mCloseBtn = (Button) findViewById(R.id.btn_close);
+
+		mResult = (TextView) findViewById(R.id.write_resutl);
 		mLogView.setDebug(true);
 
 		mReadBtn.setOnClickListener(new OnClickListenerImpl());
@@ -96,6 +98,7 @@ public class MainActivity extends Activity {
 	}
 
 	private void onWriteBtnClick() {
+		mResult.setText("");
 		String[] sarray = mWritCmd.getText().toString().split(",");
 		int[] data = new int[sarray.length];
 		boolean canParse = true;
@@ -112,6 +115,9 @@ public class MainActivity extends Activity {
 		if (sarray.length > 0 && canParse) {
 			byte[] buffer = BaseUtil.getByteArray(data);
 			int lenth = mManager.writeDev(buffer, buffer.length);
+			mResult.setTextColor(lenth >= 0 ? Color.GREEN : Color.RED);
+			mResult.setText(lenth >= 0 ? "OK" : "NG");
+			Log.v("wmg", "return len = " + lenth);
 			showLog("buffer lenth = " + buffer.length + ", return lenth = "
 					+ lenth);
 		} else {

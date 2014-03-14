@@ -161,6 +161,7 @@
         android:layout_height="wrap_content"
         android:layout_above="@id/lin_01"
         android:layout_below="@id/tab_01"
-        android:textSize="50sp" />
+        android:gravity="center"
+        android:textSize="100sp" />
 
 </RelativeLayout>
