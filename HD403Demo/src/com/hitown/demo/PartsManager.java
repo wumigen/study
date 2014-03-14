@@ -1,16 +1,19 @@
 package com.hitown.demo;
 
+import java.io.IOException;
+
 import android.os.Handler;
 import android.util.Log;
 
 public class PartsManager {
 	private static PartsManager mInstance;
+
 	private PartsManager() {
 	}
 
 	public static PartsManager getInstance() {
-		if (mInstance== null) {
-			mInstance = new PartsManager(); 
+		if (mInstance == null) {
+			mInstance = new PartsManager();
 		}
 		return mInstance;
 	}
@@ -31,14 +34,14 @@ public class PartsManager {
 
 	public native int closeDev(String devName);
 
-	public native int readDev(byte[] buffer);
+	public native int readDev(byte[] buffer, int size) ;
 
-	public native int writeDev(byte[] buffer);
+	public native int writeDev(byte[] buffer, int size) ;
 
 	public native int ioctrlDev(int cmd, int num);
 
 	private static void postMessage(String msg) {
-		Log.d(TAG, "post msg = " + msg+" handler = "+mHandler);
+		Log.d(TAG, "post msg = " + msg + " handler = " + mHandler);
 		mHandler.sendMessage(mHandler.obtainMessage(MSG_JNI_POST, msg));
 	}
 }

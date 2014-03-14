@@ -13,6 +13,13 @@
     <string name="devnamehint">输入设备名称</string>
     <string name="read_lenth">读取长度:</string>
     <string name="write_cmd">写入命令:</string>
+    <string name="write_cmd_hint">命令以逗号隔开</string>
     <string name="ioctl_cmd">ioctl命令:</string>
+    <string name="check_write_cmd">请检查要写入的命令,以英文逗号分隔</string>
+    <string name="check_read_cmd">请输入读取的长度</string>
+    <string name="open_device_succed">打开设备成功</string>
+    <string name="open_device_fail">打开设备失败</string>
+    <string name="device_null">设备为空,请重新输入</string>
+
 
 </resources>

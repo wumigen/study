@@ -1,11 +1,14 @@
 package com.hitown.demo;
 
+import java.io.IOException;
+
 import android.app.Activity;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -23,7 +26,7 @@ public class MainActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 		initView();
-		mManager =  PartsManager.getInstance();
+		mManager = PartsManager.getInstance();
 		mManager.addHandler(mHandler);
 	}
 
@@ -48,7 +51,8 @@ public class MainActivity extends Activity {
 		mOpenBtn.setOnClickListener(new OnClickListenerImpl());
 		mCloseBtn.setOnClickListener(new OnClickListenerImpl());
 
-		mDevice.setText("/dev/pca9555");
+		// mDevice.setText("/dev/pca9555");
+		mDevice.setText("mnt/sdcard/update/test.txt");
 
 	}
 
@@ -60,9 +64,11 @@ public class MainActivity extends Activity {
 
 	private void onOpenBtnClick() {
 		if (!TextUtils.isEmpty(mDevice.getText().toString())) {
-			mManager.openDev(mDevice.getText().toString());
+			int fd = mManager.openDev(mDevice.getText().toString());
+			showLog(getString(fd < 0 ? R.string.open_device_fail
+					: R.string.open_device_succed));
 		} else {
-			showLog("设备名称为空");
+			showLog(getString(R.string.device_null));
 		}
 
 	}
@@ -71,29 +77,42 @@ public class MainActivity extends Activity {
 		if (!TextUtils.isEmpty(mDevice.getText().toString())) {
 			mManager.closeDev(mDevice.getText().toString());
 		} else {
-			showLog("设备名称为空");
+			showLog(getString(R.string.device_null));
 		}
 	}
 
 	private void onReadBtnClick() {
-		
 		if (!TextUtils.isEmpty(mReadLeth.getText().toString())) {
-			String lenth = mReadLeth.getText().toString();
-			byte[] buffer = new byte[1024];
-			mManager.readDev((buffer));
+			int lenth = Integer.parseInt(mReadLeth.getText().toString());
+			byte[] buffer = new byte[lenth];
+			mManager.readDev(buffer, buffer.length);
+			showLog("read : "+BaseUtil.bytesToHexString(buffer));
 		} else {
-			showLog("读取长度为空");
+			showLog(getString(R.string.check_read_cmd));
 		}
 	}
 
 	private void onWriteBtnClick() {
-		if (!TextUtils.isEmpty(mWritCmd.getText().toString())) {
-			byte data = Byte.parseByte(mWritCmd.getText().toString());
-			byte[] buffer = new byte[]{(byte) data};
-			int lenth = mManager.writeDev(buffer);
-			showLog("write lenth = "+lenth);
+		String[] sarray = mWritCmd.getText().toString().split(",");
+		int[] data = new int[sarray.length];
+		boolean canParse = true;
+		for (int i = 0; i < sarray.length; i++) {
+			try {
+				data[i] = Integer.parseInt(sarray[i]);
+			} catch (NumberFormatException e) {
+				// TODO: handle exception
+				canParse = false;
+				e.printStackTrace();
+				Log.e("wmg", "data "+i +" ,"+sarray[i]);
+			}
+		}
+		if (sarray.length > 0 && canParse) {
+			byte[] buffer = BaseUtil.getByteArray(data);
+			int lenth = mManager.writeDev(buffer, buffer.length);
+			showLog("buffer lenth = " + buffer.length + ", return lenth = "
+					+ lenth);
 		} else {
-			showLog("写入指令为空");
+			showLog(getString(R.string.check_write_cmd));
 		}
 	}
 

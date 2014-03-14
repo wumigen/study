@@ -28,18 +28,18 @@ JNIEXPORT jint JNICALL Java_com_hitown_demo_PartsManager_closeDev
 /*
  * Class:     com_hitown_demo_PartsManager
  * Method:    readDev
- * Signature: ([B)I
+ * Signature: ([BI)I
  */
 JNIEXPORT jint JNICALL Java_com_hitown_demo_PartsManager_readDev
-  (JNIEnv *, jobject, jbyteArray);
+  (JNIEnv *, jobject, jbyteArray, jint);
 
 /*
  * Class:     com_hitown_demo_PartsManager
  * Method:    writeDev
- * Signature: ([B)I
+ * Signature: ([BI)I
  */
 JNIEXPORT jint JNICALL Java_com_hitown_demo_PartsManager_writeDev
-  (JNIEnv *, jobject, jbyteArray);
+  (JNIEnv *, jobject, jbyteArray, jint);
 
 /*
  * Class:     com_hitown_demo_PartsManager
